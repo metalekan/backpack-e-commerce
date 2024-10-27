@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AiOutlineHome,
   AiOutlineShopping,
@@ -16,7 +15,6 @@ import { logout } from "../../redux/features/auth/authSlice";
 import { Dropdown } from "flowbite-react";
 import {
   HiCog,
-  HiCurrencyDollar,
   HiLogout,
   HiShoppingCart,
   HiSortAscending,
@@ -24,9 +22,11 @@ import {
   HiUsers,
   HiViewGrid,
 } from "react-icons/hi";
+import FavoritesCount from "../Products/FavoritesCount";
 
 const Navigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -43,11 +43,7 @@ const Navigation = () => {
   };
 
   return (
-    <div
-      style={{ zIndex: 9999 }}
-      className="hidden lg:flex flex-col justify-between p-4 text-white bg-[#011222] w-[15%] max-h-screen sticky top-0"
-      id="navigation-container"
-    >
+    <div className="hidden lg:flex flex-col justify-between p-4 text-white bg-gray-800 w-[15%] max-h-screen sticky top-0">
       <div className="flex flex-col justify-center space-y-4">
         <Link
           to="/"
@@ -71,22 +67,22 @@ const Navigation = () => {
             <span className="nav-item-name mt-[3rem]">Cart</span>{" "}
           </div>
 
-          {/* <div className="absolute top-9">
+          <div className="absolute top-9">
             {cartItems.length > 0 && (
               <span>
-                <span className="px-1 py-0 text-sm text-white bg-pink-500 rounded-full">
+                <span className="px-1 py-0 text-sm text-white bg-red-500 rounded-full">
                   {cartItems.reduce((a, c) => a + c.qty, 0)}
                 </span>
               </span>
             )}
-          </div> */}
+          </div>
         </Link>
 
-        <Link to="/favorite" className="flex relative">
+        <Link to="/favorites" className="flex relative">
           <div className="flex justify-center items-center transition-transform transform hover:translate-x-2">
             <FaHeart className="mt-[3rem] mr-2" size={20} />
             <span className="nav-item-name mt-[3rem]">Favorites</span>{" "}
-            {/* <FavoritesCount /> */}
+            <FavoritesCount />
           </div>
         </Link>
       </div>
@@ -105,7 +101,7 @@ const Navigation = () => {
                 <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
               </Link>
 
-              <Link to="/admin/productlist">
+              <Link to="/admin/allproductslist">
                 <Dropdown.Item icon={HiCog}> Products</Dropdown.Item>
               </Link>
 

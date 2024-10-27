@@ -46,7 +46,7 @@ router.post("/", upload.single("image"), function (req, res) {
     }
     res.status(200).json({
       message: "Image uploaded successfully",
-      image: result,
+      image: result.url,
     });
   });
 });

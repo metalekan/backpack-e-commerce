@@ -2,13 +2,15 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navigation from "./pages/Auth/navigation";
+import GoBack from "./components/GoBack";
 
 const App = () => {
   return (
-    <div className="flex w-screen min-h-screen">
+    <div className="flex w-full min-h-screen relative">
       <ToastContainer />
       <Navigation />
-      <main className="llg:w-[85%] w-full h-full bg-gray-100 min-h-screen">
+      <main className="lg:w-[85%] w-full bg-gray-50">
+        {/* <GoBack /> */}
         <Outlet />
       </main>
     </div>

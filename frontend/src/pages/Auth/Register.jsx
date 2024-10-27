@@ -50,7 +50,7 @@ const Register = () => {
     <section className="w-screen lg:w-full lg:flex h-screen bg-white">
       <div className="lg:basis-1/2 p-4 lg:p-8 max-w-2xl mx-auto grid place-content-center">
         <div className="max-w-lg w-96">
-          <h1 className="text-2xl font-semibold mb-4 text-purple-900">
+          <h1 className="text-lg lg:text-2xl font-bold mb-4 text-purple-900">
             Create your Personal Account
           </h1>
 

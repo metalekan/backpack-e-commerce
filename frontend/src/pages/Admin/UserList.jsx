@@ -17,9 +17,7 @@ import {
   ToggleSwitch,
 } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-
-// ⚠️⚠️⚠️ don't forget this ⚠️⚠️⚠️⚠️
-// import AdminMenu from "./AdminMenu";
+import AdminMenu from "./AdminMenu";
 
 const UserList = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
@@ -85,7 +83,7 @@ const UserList = () => {
   }
 
   return (
-    <div className="w-screen lg:w-full min-h-screen p-4 lg:p-8">
+    <div className="w-full lg:p-8">
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -93,9 +91,11 @@ const UserList = () => {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <div className="flex flex-col relative">
-          <h1 className="text-2xl font-semibold mb-4 sticky top-0">Users</h1>
-          {/* <AdminMenu /> */}
+        <div className="flex flex-col relative max-w-4xl mx-auto w-full shadow-md p-4">
+          <div className="flex items-center justify-between mb-5">
+            <h1 className="text-2xl font-semibold mb-4 sticky top-0">Users</h1>
+            <AdminMenu />
+          </div>
           <div className="overflow-x-auto">
             <Table hoverable>
               <Table.Head>

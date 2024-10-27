@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice.js";
+import { useState, useEffect } from "react";
+import AdminMenu from "./AdminMenu";
+import { useNavigate, useParams } from "react-router-dom";
 import {
+  useUpdateProductMutation,
+  useGetProductByIdQuery,
   useUploadProductImageMutation,
-  useCreateProductMutation,
 } from "../../redux/api/productApiSlice.js";
-import { toast } from "react-toastify";
+import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice.js";
 import {
   Button,
   Label,
@@ -14,77 +15,106 @@ import {
   Select,
   FileInput,
 } from "flowbite-react";
-import AdminMenu from "./AdminMenu";
+import { toast } from "react-toastify";
 
-const ProductList = () => {
+const ProductUpdate = () => {
+  const { id } = useParams();
+
+  const { data: productData } = useGetProductByIdQuery(id);
+
+  console.log(productData);
+
+  const [image, setImage] = useState(productData?.image || "");
+  const [name, setName] = useState(productData?.name || "");
+  const [description, setDescription] = useState(
+    productData?.description || ""
+  );
+  const [price, setPrice] = useState(productData?.price || "");
+  const [category, setCategory] = useState(productData?.category || "");
+  const [quantity, setQuantity] = useState(productData?.quantity || "");
+  const [brand, setBrand] = useState(productData?.brand || "");
+  const [stock, setStock] = useState(productData?.countInStock || "");
+
+  console.log(stock);
+
+  // hook
   const navigate = useNavigate();
 
-  const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [brand, setBrand] = useState("");
-  const [stock, setStock] = useState(0);
-  const [imageUrl, SetImageUrl] = useState(null);
+  // Fetch categories using RTK Query
+  const { data: categories = [] } = useFetchCategoriesQuery();
 
   const [uploadProductImage] = useUploadProductImageMutation();
-  const [createProduct, { isLoading: isSuccess }] = useCreateProductMutation();
-  const { data: categories } = useFetchCategoriesQuery();
 
-  const handleSubmitProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const productData = new FormData();
-      productData.append("image", image);
-      productData.append("name", name);
-      productData.append("description", description);
-      productData.append("price", price);
-      productData.append("category", category);
-      productData.append("quantity", quantity);
-      productData.append("brand", brand);
-      productData.append("stock", stock);
+  // Define the update product mutation
+  const [updateProduct, { isLoading: isSuccess }] = useUpdateProductMutation();
 
-      const { data } = await createProduct(productData);
-      if (data.error) {
-        toast.error("Product create failed. Try again!");
-      } else {
-        toast.success(`${data.name} is created`);
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Product create failed. Try again!");
+  useEffect(() => {
+    if (productData && productData._id) {
+      setName(productData.name);
+      setDescription(productData.description);
+      setPrice(productData.price);
+      setCategory(productData.category?._id);
+      setQuantity(productData.quantity);
+      setBrand(productData.brand);
+      setImage(productData.image);
+      setStock(productData.countInStock);
     }
-  };
+  }, [productData]);
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
     try {
       const res = await uploadProductImage(formData).unwrap();
-      console.log(res);
-      toast.success(res.message);
+      // console.log(res);
+      toast.success("Item added successfully");
       setImage(res.image);
-      SetImageUrl(res.image);
-    } catch (error) {
-      toast.error(error?.data?.message || error.error);
+    } catch (err) {
+      toast.success("Item added successfully");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("quantity", quantity);
+      formData.append("brand", brand);
+      formData.append("countInStock", stock);
+
+      // Update product using the RTK Query mutation
+      const data = await updateProduct({ productId: id, formData });
+      console.log(data);
+
+      if (data?.error) {
+        toast.error(`Please  again! ${data?.error.data}`);
+      } else {
+        toast.success(`Product successfully updated`);
+        navigate("/admin/allproductslist");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(`Please try again! ${err?.error.data}`);
     }
   };
 
   return (
     <div className="w-screen lg:w-full min-h-screen flex justify-center lg:p-8">
-      <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-md p-4 max-w-3xl mx-auto w-full">
+      <div className="flex flex-col md:flex-row bg-white rounded-lg p-4 max-w-3xl mx-auto w-full">
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="h-12">Create Product</div>
             <AdminMenu />
           </div>
-          {imageUrl && (
+          {image && (
             <div className="text-center">
               <img
-                src={imageUrl}
+                src={image}
                 alt="product"
                 className="block mx-auto h-32 w-32 object-contain"
               />
@@ -104,7 +134,7 @@ const ProductList = () => {
               id="file"
             />
           </div>
-          <form onSubmit={handleSubmitProduct} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
               <div className="mb-2 block">
                 <Label htmlFor="name" value="Name" />
@@ -212,4 +242,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default ProductUpdate;

@@ -9,7 +9,7 @@ import {
 import { toast } from "react-toastify";
 import { Button, HR, Label, TextInput, Modal } from "flowbite-react";
 import Loader from "../../components/Loader.jsx";
-// import AdminMenu from "./AdminMenu";
+import AdminMenu from "./AdminMenu";
 
 const CategoryList = () => {
   const { data: categories, refetch, isLoading } = useFetchCategoriesQuery();
@@ -99,14 +99,16 @@ const CategoryList = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row">
-      {/* <AdminMenu /> */}
+    <div className="flex flex-col md:flex-row lg:p-8">
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="p-4 lg:p-8 bg-whitee rounded-md">
-          <div className="text-2xl mb-4">Manage Categories</div>
-          <form onSubmit={handleCreateCategory} className="max-w-lg">
+        <div className="p-4 bg-white rounded-md shadow-md max-w-screen-md mx-auto min-h-screenn">
+          <div className="flex items-center justify-between">
+            <div className="text-2xl mb-4">Manage Categories</div>
+            <AdminMenu />
+          </div>
+          <form onSubmit={handleCreateCategory} className="">
             <div className="mb-2 block">
               <Label htmlFor="category" value="Write category" />
             </div>

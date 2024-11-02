@@ -6,7 +6,7 @@ import GoBack from "./components/GoBack";
 
 const App = () => {
   return (
-    <div className="flex w-full min-h-screen relative">
+    <div className="flex flex-col lg:flex-row w-full min-h-screen relative">
       <ToastContainer />
       <Navigation />
       <main className="lg:w-[85%] w-full bg-gray-50">

@@ -7,8 +7,8 @@ const Header = () => {
   const { data, isLoading, error } = useGetTopProductsQuery();
   // console.log(data);
   return (
-    <div className="lg:p-8 p-4 mx-auto">
-      <div className="grid lg:grid-cols-2 lg:gap-6 gap-4">
+    <div className="lg:p-8 p-4 mx-auto max-w-screen-xl">
+      <div className="grid md:grid-cols-2 gap-4">
         <div className="grid md:grid-cols-2 gap-4">
           {data?.map((product) => (
             <div key={product._id}>

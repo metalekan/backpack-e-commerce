@@ -39,7 +39,7 @@ const Login = () => {
   };
 
   return (
-    <section className="w-screen lg:w-full lg:flex h-screen bg-white">
+    <section className="lg:flex lg:h-[96svh] bg-whitee bborder-4">
       <div className="lg:basis-1/2 p-4 lg:p-8 max-w-2xl mx-auto grid place-content-center">
         <div className="max-w-lg w-96">
           <h1 className="text-lg lg:text-2xl font-bold mb-4 text-purple-900">

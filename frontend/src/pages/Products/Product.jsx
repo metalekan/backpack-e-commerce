@@ -4,7 +4,7 @@ import HeartIcon from "./HeartIcon";
 
 const Product = ({ product }) => {
   return (
-    <Card className="pp-4">
+    <Card>
       <div className="relative">
         <img
           src={product.image}

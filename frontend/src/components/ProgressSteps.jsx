@@ -1,6 +1,6 @@
 const ProgressSteps = ({ step1, step2, step3 }) => {
   return (
-    <div className="flex justify-center items-center space-x-4 text-sm mmy-5 border">
+    <div className="flex justify-center items-center space-x-4 text-sm my-5">
       <div className={`${step1 ? "text-green-500" : "text-gray-900"}`}>
         <span className="ml-2">Login</span>
         <div className="mt-2 text-lg text-center">✅</div>

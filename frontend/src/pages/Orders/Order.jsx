@@ -12,6 +12,7 @@ import {
   usePayOrderMutation,
 } from "../../redux/api/orderApiSlice";
 import moment from "moment";
+import { Button } from "flowbite-react";
 
 const Order = () => {
   const { id: orderId } = useParams();
@@ -101,24 +102,24 @@ const Order = () => {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-gray-900">
-                <thead className="border-b-2 text-base font-semibold">
+                <thead className="border-b-2 text-sm lg:text-base font-semibold">
                   <tr>
                     <th className="p-2">Image</th>
-                    <th className="p-2">Product</th>
+                    <th className="p-2 text-start">Product</th>
                     <th className="p-2 text-center">Quantity</th>
                     <th className="p-2">Unit Price</th>
                     <th className="p-2">Total</th>
                   </tr>
                 </thead>
 
-                <tbody className="text-sm">
+                <tbody className="text-xs lg:text-sm">
                   {order.orderItems.map((item, index) => (
                     <tr key={index}>
                       <td className="p-2">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-16 h-16 object-cover"
+                          className="w-16 h-16 object-contain"
                         />
                       </td>
 
@@ -142,53 +143,57 @@ const Order = () => {
 
       <div className="md:w-1/3">
         <div className="mt-5 border-gray-300 pb-4 mb-4">
-          <h2 className="text-xl font-semibold mb-2">Shipping</h2>
-          <p className="mb-4 mt-4">
+          <h2 className="text-lg lg:text-xl font-semibold mb-2">Shipping</h2>
+          <p className="mb-4 text-sm lg:text-base mt-4">
             <strong className="text-purple-800">Order:</strong> {order._id}
           </p>
 
-          <p className="mb-4">
+          <p className="mb-4 text-sm lg:text-base">
             <strong className="text-purple-800">Name:</strong>{" "}
             {order.user.username}
           </p>
 
-          <p className="mb-4">
+          <p className="mb-4 text-sm lg:text-base">
             <strong className="text-purple-800">Email:</strong>{" "}
             {order.user.email}
           </p>
 
-          <p className="mb-4">
+          <p className="mb-4 text-sm lg:text-base">
             <strong className="text-purple-800">Address:</strong>{" "}
             {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
             {order.shippingAddress.postalCode}, {order.shippingAddress.country}
           </p>
 
-          <p className="mb-4">
+          <p className="mb-4 text-sm lg:text-base">
             <strong className="text-purple-800">Method:</strong>{" "}
             {order.paymentMethod}
           </p>
 
           {order.isPaid ? (
-            <Messsage variant="success">Paid on {order.paidAt}</Messsage>
+            <Messsage variant="success">
+              Paid on {moment(order.paidAt).format("MMMM Do YYYY, h:mm:ss a")}
+            </Messsage>
           ) : (
             <Messsage variant="danger">Not paid</Messsage>
           )}
         </div>
 
-        <h2 className="text-xl font-bold mb-2 mt-[3rem]">Order Summary</h2>
-        <div className="flex justify-between mb-2">
+        <h2 className="text-lg lg:text-xl font-bold mb-2 mt-[3rem]">
+          Order Summary
+        </h2>
+        <div className="flex justify-between mb-2 text-sm lg:text-base">
           <span>Items</span>
           <span>$ {order.itemsPrice}</span>
         </div>
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-2 text-sm lg:text-base">
           <span>Shipping</span>
           <span>$ {order.shippingPrice}</span>
         </div>
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-2 text-sm lg:text-base">
           <span>Tax</span>
           <span>$ {order.taxPrice}</span>
         </div>
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-2 text-sm lg:text-base">
           <span>Total</span>
           <span>$ {order.totalPrice}</span>
         </div>
@@ -215,13 +220,14 @@ const Order = () => {
         {loadingDeliver && <Loader />}
         {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
           <div>
-            <button
+            <Button
+              className="min-w-full"
               type="button"
-              className="bg-purple-800 text-white w-full py-2"
+              color="purple"
               onClick={deliverHandler}
             >
               Mark As Delivered
-            </button>
+            </Button>
           </div>
         )}
       </div>

@@ -11,7 +11,7 @@ const Home = () => {
   console.log(keyword);
   const { data, isLoading, isError } = useGetProductsQuery({ keyword });
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <>
       {!keyword ? <Header /> : null}
       {isLoading ? (
         <Loader />
@@ -20,7 +20,7 @@ const Home = () => {
           {isError?.data?.message || isError.error}
         </Message>
       ) : (
-        <div className="lg:p-8 p-4 mt-[4rem]">
+        <div className="mt-[4rem]">
           <div className="flex justify-between items-center">
             <h1 className="text-xl font-medium">Special Products</h1>
             <Link to="/shop">
@@ -39,7 +39,7 @@ const Home = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

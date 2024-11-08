@@ -115,7 +115,8 @@ const countTotalOrders = async (req, res) => {
 const calculateTotalSales = async (req, res) => {
   try {
     const orders = await Order.find();
-    const totalSales = orders.reduce((sum, order) => sum + order.totalOrders);
+    const totalSales = orders.reduce((sum, order) => sum + order.totalPrice, 0);
+    console.log(totalSales);
     res.json({ totalSales });
   } catch (error) {
     res

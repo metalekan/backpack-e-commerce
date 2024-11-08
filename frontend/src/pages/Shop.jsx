@@ -82,7 +82,7 @@ const Shop = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <>
       <div className="flex md:flex-row">
         <div className="border rounded-md p-4 max-w-60 min-w-64 h-fit sticky top-10">
           <h2 className="text-center py-2 bg-purple-800 text-white rounded-full mb-2 text-sm">
@@ -117,7 +117,7 @@ const Shop = () => {
                   name="brand"
                   onChange={() => handleBrandClick(brand)}
                   id={brand}
-                  className="checked:bg-purple-800"
+                  className="checked:bg-purple-800 focus:ring-0"
                 />
                 <Label htmlFor="pink-radio">{brand}</Label>
               </div>
@@ -150,20 +150,18 @@ const Shop = () => {
           <h2 className="h4 text-center mb-2">
             Products ({products?.length}){" "}
           </h2>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 min-w-full">
-            {products.length === 0 ? (
-              <Loader />
-            ) : (
-              products?.map((p) => (
-                <div className="p-3" key={p._id}>
-                  <ProductCard p={p} />
-                </div>
-              ))
-            )}
-          </div>
+          {products.length === 0 ? (
+            <Loader />
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 min-w-full">
+              {products?.map((p) => (
+                <ProductCard p={p} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

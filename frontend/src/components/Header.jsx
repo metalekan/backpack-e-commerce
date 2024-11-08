@@ -7,7 +7,7 @@ const Header = () => {
   const { data, isLoading, error } = useGetTopProductsQuery();
   // console.log(data);
   return (
-    <div className="lg:p-8 p-4 mx-auto max-w-screen-xl">
+    <>
       <div className="grid md:grid-cols-2 gap-4">
         <div className="grid md:grid-cols-2 gap-4">
           {data?.map((product) => (
@@ -18,7 +18,7 @@ const Header = () => {
         </div>
         <ProductCarousel />
       </div>
-    </div>
+    </>
   );
 };
 

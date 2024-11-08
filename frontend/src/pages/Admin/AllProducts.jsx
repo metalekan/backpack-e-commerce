@@ -39,18 +39,18 @@ const AllProducts = () => {
   }
 
   return (
-    <div className="w-screen lg:w-full min-h-screen lg:p-8">
+    <div className="lg:w-full min-h-screen">
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="max-w-screen-lg mx-auto p-4">
+        <div className="">
           <div className="flex justify-between items-center lg:mx-5 mb-10">
             <div className="text-xl tracking-tight text-gray-900 font-bold">
               All Products ({products.length})
             </div>
             <AdminMenu />
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mx-auto md:max-w-full max-w-sm">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             {products.map((product) => (
               <Card key={product._id}>
                 <div className="flex items-center">
@@ -62,7 +62,7 @@ const AllProducts = () => {
                   <div className="p-4 flex flex-col justify-around">
                     <div className="flex justify-between items-center">
                       <h5 className="text-md lg:text-xl font-semibold capitalize tracking-tight text-gray-900">
-                        {product?.name?.substring(0, 30)}...
+                        {product?.name?.substring(0, 30)}
                       </h5>
                       <p className="text-gray-400 text-xs ml-3 hidden">
                         {moment(product.createdAt).format("MMMM Do YYYY")}

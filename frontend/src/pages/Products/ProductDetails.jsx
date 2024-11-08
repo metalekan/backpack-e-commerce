@@ -66,7 +66,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto lg:p-4">
+    <>
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -175,7 +175,7 @@ const ProductDetails = () => {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 

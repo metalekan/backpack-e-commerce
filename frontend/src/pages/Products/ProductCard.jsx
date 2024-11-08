@@ -16,7 +16,7 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <Card>
+    <Card key={p._id}>
       <div className="relative">
         <Link to={`/product/${p._id}`}>
           <Badge className="absolute top-3 left-3" color="gray">

@@ -83,7 +83,7 @@ const UserList = () => {
   }
 
   return (
-    <div className="w-full lg:p-8">
+    <>
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -91,7 +91,7 @@ const UserList = () => {
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <div className="flex flex-col relative max-w-4xl mx-auto w-full shadow-md p-4">
+        <div className="flex flex-col relative w-full shadow-md p-4">
           <div className="flex items-center justify-between mb-5">
             <h1 className="text-2xl font-semibold mb-4 sticky top-0">Users</h1>
             <AdminMenu />
@@ -111,7 +111,7 @@ const UserList = () => {
                 </Table.HeadCell>
               </Table.Head>
               <Table.Body className="divide-y">
-                {users?.users?.map((user) => (
+                {users?.map((user) => (
                   <Table.Row
                     key={user._id}
                     className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -201,6 +201,7 @@ const UserList = () => {
                     color="purple"
                     checked={isAdmin}
                     label="Admin"
+                    className="focus:ring-0"
                     onChange={() => setIsAdmin(!isAdmin)}
                   />
                 </div>
@@ -249,7 +250,7 @@ const UserList = () => {
           </Modal>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import {
   saveShippingAddress,
   savePaymentMethod,
 } from "../../redux/features/cart/cartSlice";
-import { Button } from "flowbite-react";
+import { Button, Label, Radio, TextInput } from "flowbite-react";
 import ProgressSteps from "../../components/ProgressSteps";
 
 const Shipping = () => {
@@ -39,76 +39,80 @@ const Shipping = () => {
   }, [navigate, shippingAddress]);
 
   return (
-    <div className="max-w-screen-xl mx-auto lg:p-8 p-4">
+    <div className="max-w-screen-xl mx-auto lg:p-8 p-4 min-h-screen">
       <ProgressSteps step1 step2 />
-      <div className="mt-[10rem] flex justify-around items-center flex-wrap">
-        <form onSubmit={submitHandler} className="max-w-xl w-full">
-          <h1 className="lg:text-2xl text-lg text-gray-900 font-semibold mb-4 text-center">
-            Shipping
-          </h1>
-          <div className="mb-4">
-            <label className="block text-white mb-2">Address</label>
-            <input
+      <div className="flex flex-col justify-center items-center h-full bg-white lg:p-8 max-w-xl rounded-md mx-auto mt-6">
+        <h1 className="lg:text-2xl text-lg text-gray-900 font-semibold mb-4 text-center">
+          Shipping
+        </h1>
+        <form onSubmit={submitHandler} className="max-w-xl w-full space-y-2">
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="email" value="Your Address" />
+            </div>
+            <TextInput
+              id="address"
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter address"
-              value={address}
+              color="purple"
               required
+              value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-white mb-2">City</label>
-            <input
+          </div>{" "}
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="city" value="Your City" />
+            </div>
+            <TextInput
+              id="email"
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter city"
-              value={city}
+              color="purple"
               required
+              value={city}
               onChange={(e) => setCity(e.target.value)}
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-white mb-2">Postal Code</label>
-            <input
+          </div>{" "}
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="email" value="Your Postal code" />
+            </div>
+            <TextInput
+              id="postal_code"
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter postal code"
-              value={postalCode}
+              color="purple"
               required
+              value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-white mb-2">Country</label>
-            <input
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="country" value="Your country" />
+            </div>
+            <TextInput
+              id="country"
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter country"
-              value={country}
+              color="purple"
               required
+              value={country}
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-400">Select Method</label>
-            <div className="mt-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="radio"
-                  className="form-radio text-pink-500"
-                  name="paymentMethod"
-                  value="PayPal"
-                  checked={paymentMethod === "PayPal"}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                />
-
-                <span className="ml-2">PayPal or Credit Card</span>
-              </label>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="method" value="Payment Method" />
             </div>
+            <Radio
+              id="united-state"
+              name="countries"
+              value={paymentMethod}
+              checked={paymentMethod || "PayPal"}
+              className="checked:bg-purple-800 focus:outline-none focus:ring-0"
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            />
+            <Label htmlFor="payment-method">PayPal or Card</Label>
           </div>
-
-          <Button pill color="purple" className="w-full" type="submit">
+          <Button pill color="purple" className="w-full mt-4" type="submit">
             Continue
           </Button>
         </form>

@@ -43,16 +43,15 @@ const PlaceOrder = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto lg:p-8 p-4">
+    <div className="max-w-screen-xl mx-auto min-h-screen lg:p-8 p-4">
       <ProgressSteps step1 step2 step3 />
-
       <div className="">
         {cart.cartItems.length === 0 ? (
           <Message>Your cart is empty</Message>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-gray-900">
-              <thead className="font-semibold text-base">
+            <table className="w-full border-collapse text-gray-900 p-2">
+              <thead className="font-semibold text-sm lg:text-base">
                 <tr>
                   <td className="px-1 py-2 text-left align-top">Image</td>
                   <td className="px-1 py-2 text-left">Product</td>
@@ -62,14 +61,14 @@ const PlaceOrder = () => {
                 </tr>
               </thead>
 
-              <tbody className="text-sm">
+              <tbody className="text-xs lg:text-sm">
                 {cart.cartItems.map((item, index) => (
                   <tr key={index}>
                     <td className="p-2">
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-16 h-16 object-cover"
+                        className="w-16 h-16 object-contain"
                       />
                     </td>
 
@@ -90,33 +89,38 @@ const PlaceOrder = () => {
 
         <div className="mt-8">
           <h2 className="text-2xl font-semibold mb-5">Order Summary</h2>
-          <div className="flex flex-col gap-3 p-8 border bbg-[#181818]">
-            <ul className="text-md">
-              <li>
-                <span className="font-semibold mb-4">Items:</span> $
-                {cart.itemsPrice}
-              </li>
-              <li>
-                <span className="font-semibold mb-4">Shipping:</span> $
-                {cart.shippingPrice}
-              </li>
-              <li>
-                <span className="font-semibold mb-4">Tax:</span> $
-                {cart.taxPrice}
-              </li>
-              <li>
-                <span className="font-semibold mb-4">Total:</span> $
-                {cart.totalPrice}
-              </li>
-            </ul>
+          <div className="flex flex-col gap-4 p-4 lg:p-8 border max-w-xl rounded-md shadow">
+            <div>
+              <h2 className="text-base lg:text-xl font-semibold mb-2 text-purple-800">
+                Pricing
+              </h2>
+              <ul className="text-sm lg:text-base">
+                <li>
+                  <span className="font-semibold mb-4">Items:</span> $
+                  {cart.itemsPrice}
+                </li>
+                <li>
+                  <span className="font-semibold mb-4">Shipping:</span> $
+                  {cart.shippingPrice}
+                </li>
+                <li>
+                  <span className="font-semibold mb-4">Tax:</span> $
+                  {cart.taxPrice}
+                </li>
+                <li>
+                  <span className="font-semibold mb-4">Total:</span> $
+                  {cart.totalPrice}
+                </li>
+              </ul>
+            </div>
 
             {error && <Message variant="danger">{error.data.message}</Message>}
 
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-purple-800">
+              <h2 className="text-base lg:text-xl font-semibold mb-2 text-purple-800">
                 Shipping
               </h2>
-              <p className="text-base">
+              <p className="text-sm lg:text-base">
                 <strong>Address:</strong> {cart.shippingAddress.address},{" "}
                 {cart.shippingAddress.city} {cart.shippingAddress.postalCode},{" "}
                 {cart.shippingAddress.country}
@@ -124,10 +128,12 @@ const PlaceOrder = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-purple-800">
+              <h2 className="text-base lg:text-xl font-semibold mb-2 text-purple-800">
                 Payment Method
               </h2>
-              <strong>Method:</strong> {cart.paymentMethod}
+              <p className="text-sm lg:text-base">
+                <strong>Method:</strong> {cart.paymentMethod}
+              </p>
             </div>
           </div>
 
@@ -135,7 +141,7 @@ const PlaceOrder = () => {
             type="button"
             color="purple"
             pill
-            className="w-full max-w-lg mx-auto"
+            className="w-fit mt-4"
             disabled={cart.cartItems === 0}
             onClick={placeOrderHandler}
           >

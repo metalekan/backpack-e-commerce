@@ -46,7 +46,6 @@ const login = asyncHandler(async (req, res) => {
 
     if (isPasswordValid) {
       generateToken(res, existingUser._id);
-
       res.status(StatusCodes.CREATED).json({
         _id: existingUser._id,
         username: existingUser.username,
@@ -73,7 +72,7 @@ const logout = asyncHandler(async (req, res) => {
 
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
-  res.status(StatusCodes.OK).json({ NbHits: users.length, users });
+  res.status(StatusCodes.OK).json(users);
 });
 
 const getCurrentUserProfile = asyncHandler(async (req, res) => {

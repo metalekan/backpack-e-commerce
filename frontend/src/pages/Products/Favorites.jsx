@@ -6,15 +6,17 @@ const Favorites = () => {
   const favorites = useSelector(selectFavoriteProduct);
 
   return (
-    <div className="max-w-screen-xl mx-auto">
-      <h1 className="text-lg font-bold text-gray-900">FAVORITE PRODUCTS</h1>
+    <>
+      <h1 className="lg:text-lg text-base font-semibold text-gray-900">
+        Favorite Products
+      </h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 my-[4rem]">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
         {favorites.map((product) => (
           <Product key={product._id} product={product} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
